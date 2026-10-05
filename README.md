@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- استفاده از نسخه defer برای لود سریع‌تر -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <style>
         :root {
@@ -32,6 +33,9 @@
             overflow-x: hidden;
             line-height: 1.5;
         }
+
+        /* --- راه حل مشکل نمایش کدهای خام قبل از لود Vue --- */
+        [v-cloak] { display: none; }
 
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .scroll-progress { position: fixed; top: 0; left: 0; height: 4px; width: 0%; background: var(--accent-color); z-index: 1001; box-shadow: 0 0 10px var(--accent-color); }
@@ -186,7 +190,8 @@
     </style>
 </head>
 <body>
-    <div id="app">
+    <!-- استفاده از v-cloak برای مخفی نگه داشتن کدها تا زمان لود کامل Vue -->
+    <div id="app" v-cloak>
         <div class="preloader" :class="{ hidden: !isLoading }">
             <div class="loader-logo">&lt; Dev / &gt;</div>
             <div class="loader-bar"><div class="loader-fill" :style="{ width: loadProgress + '%' }"></div></div>
